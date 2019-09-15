@@ -42,12 +42,12 @@ RCT_REMAP_METHOD(getNotifications, loadSoundsWithResolver:(RCTPromiseResolveBloc
                 NSArray *title = [fileName componentsSeparatedByString:@"."];
                 
                 NSCharacterSet *notAllowedChars = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
-                NSString *escapedString = [[title[0] componentsSeparatedByCharactersInSet:notAllowedChars] componentsJoinedByString:@" "];
-                NSLog (@"Result: %@", escapedString);
+                NSString *soundTitle = [[title[0] componentsSeparatedByCharactersInSet:notAllowedChars] componentsJoinedByString:@" "];
+                NSLog (@"Result: %@", soundTitle);
 
                 
                 NSString *urlString = url.absoluteString;
-                NSArray *arrayOfAudio = [NSArray arrayWithObjects:title[0], urlString, nil]; // if you want immutable array
+                NSArray *arrayOfAudio = [NSArray arrayWithObjects:soundTitle, urlString, nil]; // if you want immutable array
                 [audioFileList addObject:arrayOfAudio];
             }
         }
