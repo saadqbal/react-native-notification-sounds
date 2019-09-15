@@ -1,0 +1,20 @@
+
+{
+  "name": "react-native-notification-sounds",
+  "version": "0.1",
+  "description": "Native notification sounds list. returns the id, title and url of the sounds",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "native-sounds",
+    "notifications-sounds"
+  ],
+  "author": "Asad Iqbal",
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": "^0.41.2"
+  }
+}
