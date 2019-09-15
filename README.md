@@ -38,6 +38,7 @@
 ```javascript
 import NotificationSounds from 'react-native-notification-sounds';
 
-// TODO: What to do with the module?
-NotificationSounds;
+NotificationSounds.getNotifications().then(soundsList => {
+    console.warn('SOUNDS', JSON.stringify(SoundsList));
+});
 ```
