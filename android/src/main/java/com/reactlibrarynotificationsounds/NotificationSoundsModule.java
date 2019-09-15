@@ -2,11 +2,17 @@ package com.reactlibrarynotificationsounds;
 
 import android.database.Cursor;
 import android.media.RingtoneManager;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableMap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,19 +38,26 @@ public class NotificationSoundsModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public Map<String, String> getNotifications() {
+    public void getNotifications(final Promise promise) {
         RingtoneManager manager = new RingtoneManager(this.reactContext);
         manager.setType(RingtoneManager.TYPE_NOTIFICATION);
         Cursor cursor = manager.getCursor();
-        Map<String, String> list = new HashMap<>();
+        WritableArray list = Arguments.createArray();
+
         while (cursor.moveToNext()) {
             String notificationTitle = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
             String notificationUri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
             String id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
-            list.put(notificationTitle, notificationUri + "/" + id );
+
+            WritableMap newSound = Arguments.createMap();
+            newSound.putString("title", notificationTitle);
+            newSound.putString("uri", notificationUri + "/" + id );
+
+            list.pushMap(newSound);
+            Log.d("getNotifications: ", notificationUri + id);
         }
 
-        return list;
+        promise.resolve(list);
     }
 
 }
