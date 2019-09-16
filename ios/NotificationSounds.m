@@ -44,11 +44,15 @@ RCT_REMAP_METHOD(getNotifications, loadSoundsWithResolver:(RCTPromiseResolveBloc
                 NSCharacterSet *notAllowedChars = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
                 NSString *soundTitle = [[title[0] componentsSeparatedByCharactersInSet:notAllowedChars] componentsJoinedByString:@" "];
                 NSLog (@"Result: %@", soundTitle);
+                CFURLRef cfUrl = (__bridge CFURLRef)url;
+                SystemSoundID soundID;
+                AudioServicesCreateSystemSoundID(cfUrl, &soundID);
                 
                 NSString *urlString = url.absoluteString;
                 NSMutableDictionary *audioSound = [NSMutableDictionary dictionary];
                 [audioSound setObject: soundTitle  forKey: @"title"];
                 [audioSound setObject: urlString  forKey:  @"url"];
+                [audioSound setObject: [NSNumber numberWithInt:((int)soundID)]  forKey:  @"soundID"];
                 [audioFileList addObject:audioSound];
             }
         }
@@ -64,12 +68,8 @@ RCT_REMAP_METHOD(getNotifications, loadSoundsWithResolver:(RCTPromiseResolveBloc
 
 
 
-RCT_EXPORT_METHOD(playSample:(NSURL *)soundURL)
+RCT_EXPORT_METHOD(playSample:(int)soundID)
 {
- 
-    CFURLRef url = (__bridge CFURLRef)soundURL;
-    SystemSoundID soundID;
-    AudioServicesCreateSystemSoundID(url, &soundID);
     AudioServicesPlaySystemSound(soundID);
     AudioServicesPlaySystemSoundWithCompletion(soundID, ^{
         AudioServicesDisposeSystemSoundID(soundID);
