@@ -1,5 +1,5 @@
 #import "NotificationSounds.h"
-
+#import <AudioToolbox/AudioToolbox.h>
 
 @implementation NotificationSounds
 
@@ -44,11 +44,12 @@ RCT_REMAP_METHOD(getNotifications, loadSoundsWithResolver:(RCTPromiseResolveBloc
                 NSCharacterSet *notAllowedChars = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
                 NSString *soundTitle = [[title[0] componentsSeparatedByCharactersInSet:notAllowedChars] componentsJoinedByString:@" "];
                 NSLog (@"Result: %@", soundTitle);
-
                 
                 NSString *urlString = url.absoluteString;
-                NSArray *arrayOfAudio = [NSArray arrayWithObjects:soundTitle, urlString, nil]; // if you want immutable array
-                [audioFileList addObject:arrayOfAudio];
+                NSMutableDictionary *audioSound = [NSMutableDictionary dictionary];
+                [audioSound setObject: soundTitle  forKey: @"title"];
+                [audioSound setObject: urlString  forKey:  @"url"];
+                [audioFileList addObject:audioSound];
             }
         }
 
@@ -63,36 +64,17 @@ RCT_REMAP_METHOD(getNotifications, loadSoundsWithResolver:(RCTPromiseResolveBloc
 
 
 
-
-//(void)loadAudioFileList{
-//    audioFileList = [[NSMutableArray alloc] init];
-//
-//    NSFileManager *fileManager = [[NSFileManager alloc] init];
-//    NSURL *directoryURL = [NSURL URLWithString:@"/System/Library/Audio/UISounds"];
-//    NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
-//
-//    NSDirectoryEnumerator *enumerator = [fileManager
-//                                         enumeratorAtURL:directoryURL
-//                                         includingPropertiesForKeys:keys
-//                                         options:0
-//                                         errorHandler:^(NSURL *url, NSError *error) {
-//                                             // Handle the error.
-//                                             // Return YES if the enumeration should continue after the error.
-//                                             return YES;
-//                                         }];
-//
-//    for (NSURL *url in enumerator) {
-//        NSError *error;
-//        NSNumber *isDirectory = nil;
-//        if (! [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
-//            // handle error
-//        }
-//        else if (! [isDirectory boolValue]) {
-//            [audioFileList addObject:url];
-//        }
-//    }
-//}
-
+RCT_EXPORT_METHOD(playSample:(NSURL *)soundURL)
+{
+ 
+    CFURLRef url = (__bridge CFURLRef)soundURL;
+    SystemSoundID soundID;
+    AudioServicesCreateSystemSoundID(url, &soundID);
+    AudioServicesPlaySystemSound(soundID);
+    AudioServicesPlaySystemSoundWithCompletion(soundID, ^{
+        AudioServicesDisposeSystemSoundID(soundID);
+    });
+}
 
 
 
