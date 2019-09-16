@@ -1,7 +1,9 @@
 package com.reactlibrarynotificationsounds;
 
 import android.database.Cursor;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -51,13 +53,26 @@ public class NotificationSoundsModule extends ReactContextBaseJavaModule {
 
             WritableMap newSound = Arguments.createMap();
             newSound.putString("title", notificationTitle);
-            newSound.putString("uri", notificationUri + "/" + id );
+            newSound.putString("url", notificationUri + "/" + id );
+            newSound.putString("soundID", id );
 
             list.pushMap(newSound);
             Log.d("getNotifications: ", notificationUri + id);
         }
-
         promise.resolve(list);
     }
+
+
+    @ReactMethod
+    public void playSample(String uri){
+        try {
+            Uri notification = Uri.parse(uri);
+            Ringtone r = RingtoneManager.getRingtone(this.reactContext, notification);
+            r.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
