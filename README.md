@@ -36,9 +36,20 @@
 
 ## Usage
 ```javascript
-import NotificationSounds from 'react-native-notification-sounds';
+import NotificationSounds, { playSampleSound } from 'react-native-notification-sounds';
 
+/* 
+get the list of System notification sounds. This function returns an array
+the array contains Title, Url, SoundID
+*/
 NotificationSounds.getNotifications().then(soundsList => {
     console.warn('SOUNDS', JSON.stringify(SoundsList));
+    /* 
+	Play the notification sound.
+	pass the complete sound object.
+    This function can be used for playing the sample sound
+	*/
+	playSampleSound(SoundsList[1); 
 });
+
 ```
