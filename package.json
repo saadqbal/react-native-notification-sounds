@@ -3,6 +3,7 @@
   "version": "0.2.1",
   "description": "Native notification sounds list. returns the id, title and url of the sounds",
   "main": "index.js",
+  "type": "index.d.ts"
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
