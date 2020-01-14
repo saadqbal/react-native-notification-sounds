@@ -7,6 +7,6 @@ declare module 'react-native-notification-sounds' {
 
   export function playSampleSound(s: Sound): void
 
-  type NotificationSounds = { getNotifications(): Promise<Sound[]> }
+  const NotificationSounds = { getNotifications(): Promise<Sound[]> }
   export default NotificationSounds
 }
