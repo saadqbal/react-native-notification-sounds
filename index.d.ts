@@ -1,6 +1,6 @@
 declare module 'react-native-notification-sounds' {
   interface Sound {
-    soundID: string
+    soundID: number
     url: string
     title: string
   }
