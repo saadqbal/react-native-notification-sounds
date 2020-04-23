@@ -66,7 +66,13 @@ public class NotificationSoundsModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void playSample(String uri){
         try {
-            Uri notification = Uri.parse(uri);
+            Uri notification;
+            if (uri == null || uri.length() == 0) {
+                notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            }
+            else {
+                notification = Uri.parse(uri);
+            }
             Ringtone r = RingtoneManager.getRingtone(this.reactContext, notification);
             r.play();
         } catch (Exception e) {
