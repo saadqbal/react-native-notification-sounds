@@ -1,6 +1,6 @@
 {
   "name": "react-native-notification-sounds",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Native notification sounds list. returns the id, title and url of the sounds",
   "main": "index.js",
   "type": "index.d.ts",

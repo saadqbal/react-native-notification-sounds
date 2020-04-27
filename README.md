@@ -37,7 +37,6 @@
 ## Usage
 ```javascript
 import NotificationSounds, { playSampleSound } from 'react-native-notification-sounds';
-
 /* 
 get the list of System notification sounds. This function returns an array
 the array contains Title, Url, SoundID
@@ -53,3 +52,7 @@ NotificationSounds.getNotifications().then(soundsList => {
 });
 
 ```
+
+## Important Note
+Unfortunately, this library WILL NOT return any files in the iOS simulator. You must run it on a real iOS device (iPhone, iPad, iPod Touch).
+
