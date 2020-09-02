@@ -49,6 +49,8 @@ NotificationSounds.getNotifications().then(soundsList => {
     This function can be used for playing the sample sound
 	*/
 	playSampleSound(soundsList[1]);
+	// if you want to stop any playing sound just call:
+	// stopSampleSound();
 });
 
 ```
