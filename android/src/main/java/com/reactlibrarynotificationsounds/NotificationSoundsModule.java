@@ -22,6 +22,7 @@ import java.util.Map;
 public class NotificationSoundsModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
+    private Ringtone r;
 
     public NotificationSoundsModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -63,6 +64,7 @@ public class NotificationSoundsModule extends ReactContextBaseJavaModule {
     }
 
 
+    
     @ReactMethod
     public void playSample(String uri){
         try {
@@ -73,8 +75,19 @@ public class NotificationSoundsModule extends ReactContextBaseJavaModule {
             else {
                 notification = Uri.parse(uri);
             }
+            if (r != null)
+                r.stop();
             Ringtone r = RingtoneManager.getRingtone(this.reactContext, notification);
             r.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @ReactMethod
+    public void stopSample() {
+        try {
+            if (r != null) r.stop();
         } catch (Exception e) {
             e.printStackTrace();
         }
