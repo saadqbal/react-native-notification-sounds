@@ -48,7 +48,7 @@ NotificationSounds.getNotifications().then(soundsList => {
 	pass the complete sound object.
     This function can be used for playing the sample sound
 	*/
-	playSampleSound(SoundsList[1]); 
+	playSampleSound(soundsList[1]);
 });
 
 ```

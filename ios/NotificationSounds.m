@@ -68,11 +68,12 @@ RCT_REMAP_METHOD(getNotifications, loadSoundsWithResolver:(RCTPromiseResolveBloc
 
 
 
-RCT_EXPORT_METHOD(playSample:(int)soundID)
+RCT_REMAP_METHOD(playSample:(int)soundID, playSoundsWithResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     AudioServicesPlaySystemSound(soundID);
     AudioServicesPlaySystemSoundWithCompletion(soundID, ^{
         AudioServicesDisposeSystemSoundID(soundID);
+        resolve(true);
     });
 }
 
