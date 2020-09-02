@@ -72,9 +72,9 @@ NotificationSounds.getNotifications('notification').then(soundsList  => {
 ## :fire: Features
 
  
-:white_check_mark: Get the list of system notification or ringtone sounds.
-:white_check_mark: Filter the sounds by notification, ringtone or alarm.
-:white_check_mark: Play the sound without installing any other library
+:white_check_mark: Get the list of system notification or ringtone sounds.\
+:white_check_mark: Filter the sounds by notification, ringtone or alarm.\
+:white_check_mark: Play the sound without installing any other library\
 :white_check_mark: Stop the currently playing notification sound.
 
   
