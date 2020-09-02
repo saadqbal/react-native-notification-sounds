@@ -40,8 +40,12 @@ import NotificationSounds, { playSampleSound } from 'react-native-notification-s
 /* 
 get the list of System notification sounds. This function returns an array
 the array contains Title, Url, SoundID
+You can pass the following values to the getNotifications:
+	1. notification: get the list of notifictaion sounds
+	2. ringtone: get the list of ringtones
+	3. alarm: get the list of alarm sounds (andoid only)
 */
-NotificationSounds.getNotifications().then(soundsList => {
+NotificationSounds.getNotifications('notification').then(soundsList => {
     console.warn('SOUNDS', JSON.stringify(SoundsList));
     /* 
 	Play the notification sound.

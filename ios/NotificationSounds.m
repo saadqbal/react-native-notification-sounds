@@ -11,12 +11,20 @@ RCT_EXPORT_METHOD(sampleMethod:(NSString *)stringArgument numberParameter:(nonnu
 	callback(@[[NSString stringWithFormat: @"numberArgument: %@ stringArgument: %@", numberArgument, stringArgument]]);
 }
 
-RCT_REMAP_METHOD(getNotifications, loadSoundsWithResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(getNotifications, soundTypeParamentr:(NSString *)soundType loadSoundsWithResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
+    
+        NSURL *directoryURL;
+
+        if ([soundType isEqualToString:@"ringtone"]) {
+            directoryURL = [NSURL URLWithString:@"/Library/Ringtones"];
+        } else {
+            directoryURL = [NSURL URLWithString:@"/System/Library/Audio/UISounds"];
+        }
+
         NSMutableArray *audioFileList = [[NSMutableArray alloc] init];
     
         NSFileManager *fileManager = [[NSFileManager alloc] init];
-        NSURL *directoryURL = [NSURL URLWithString:@"/System/Library/Audio/UISounds"];
         NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
     
         NSDirectoryEnumerator *enumerator = [fileManager
@@ -67,15 +75,27 @@ RCT_REMAP_METHOD(getNotifications, loadSoundsWithResolver:(RCTPromiseResolveBloc
 }
 
 
+SystemSoundID soundID = 0;
 
-RCT_EXPORT_METHOD(playSample:(int)soundID)
+RCT_EXPORT_METHOD(playSample:(NSString *) soundUrl)
 {
+    NSURL *url = [NSURL URLWithString:soundUrl];
+    AudioServicesDisposeSystemSoundID(soundID);
+    //Register the sound to the system
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundID);
     AudioServicesPlaySystemSound(soundID);
     AudioServicesPlaySystemSoundWithCompletion(soundID, ^{
+        AudioServicesRemoveSystemSoundCompletion(soundID);
         AudioServicesDisposeSystemSoundID(soundID);
     });
+   
 }
 
+RCT_EXPORT_METHOD(stopSample)
+{
+    AudioServicesRemoveSystemSoundCompletion(soundID);
+    AudioServicesDisposeSystemSoundID(soundID);
+}
 
 
 @end
