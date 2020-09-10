@@ -51,7 +51,7 @@ You can pass the following values to the getNotifications:
 3. alarm: get the list of alarm sounds (andoid only)
 */
 NotificationSounds.getNotifications('notification').then(soundsList  => {
-	console.warn('SOUNDS', JSON.stringify(SoundsList));
+	console.warn('SOUNDS', JSON.stringify(soundsList));
 	/*
 	Play the notification sound.
 	pass the complete sound object.
