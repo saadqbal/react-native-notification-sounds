@@ -1,5 +1,5 @@
 declare module 'react-native-notification-sounds' {
-  interface Sound {
+  export interface Sound {
     soundID: string
     url: string
     title: string
