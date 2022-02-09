@@ -36,12 +36,6 @@ public class NotificationSoundsModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void sampleMethod(String stringArgument, int numberArgument, Callback callback) {
-        // TODO: Implement some actually useful functionality
-        callback.invoke("Received numberArgument: " + numberArgument + " stringArgument: " + stringArgument);
-    }
-
-    @ReactMethod
     public void getNotifications(String soundType, final Promise promise) {
         RingtoneManager manager = new RingtoneManager(this.reactContext);
         Integer ringtoneManagerType;
