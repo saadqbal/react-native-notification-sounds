@@ -28,10 +28,6 @@
   "license": "MIT",
   "licenseFilename": "LICENSE",
   "readmeFilename": "README.md",
-  "peerDependencies": {
-    "react": "^16.8.1",
-    "react-native": ">=0.64.1"
-  },
   "devDependencies": {
     "react": "^16.8.3",
     "react-native": "^0.64.1"
